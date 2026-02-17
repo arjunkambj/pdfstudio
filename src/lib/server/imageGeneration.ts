@@ -3,7 +3,10 @@ import { api } from "../../../convex/_generated/api";
 import type { Id } from "../../../convex/_generated/dataModel";
 import { convex } from "./convex";
 
-export async function generateImagesForProject(projectId: Id<"projects">) {
+export async function generateImagesForProject(
+  projectId: Id<"projects">,
+  artStyle?: string,
+) {
   const slides = await convex.query(api.slides.listByProject, { projectId });
   const targetSlides = slides.filter(
     (slide) => slide.needsImage && slide.imagePrompt,
@@ -21,7 +24,7 @@ export async function generateImagesForProject(projectId: Id<"projects">) {
 
       const result = await fal.subscribe("fal-ai/flux/schnell", {
         input: {
-          prompt: `${slide.imagePrompt}. 16:9 presentation visual.`,
+          prompt: `${slide.imagePrompt}. ${artStyle ? `${artStyle} style.` : ""} 16:9 presentation visual.`,
           image_size: "landscape_16_9",
           num_images: 1,
         },

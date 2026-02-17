@@ -22,6 +22,8 @@ const statusColors: Record<
 > = {
   draft: "default",
   processing: "warning",
+  editing: "primary",
+  generating_pdf: "warning",
   ready: "success",
   error: "danger",
 };

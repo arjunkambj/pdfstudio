@@ -90,6 +90,8 @@ export const setStatus = mutation({
     status: v.union(
       v.literal("draft"),
       v.literal("processing"),
+      v.literal("editing"),
+      v.literal("generating_pdf"),
       v.literal("ready"),
       v.literal("error"),
     ),
@@ -98,7 +100,13 @@ export const setStatus = mutation({
   },
   handler: async (ctx, args) => {
     const patch: {
-      status: "draft" | "processing" | "ready" | "error";
+      status:
+        | "draft"
+        | "processing"
+        | "editing"
+        | "generating_pdf"
+        | "ready"
+        | "error";
       updatedAt: number;
       errorMessage?: string;
       slideCount?: number;
@@ -117,6 +125,33 @@ export const setStatus = mutation({
     }
 
     await ctx.db.patch(args.id, patch);
+  },
+});
+
+export const updateSettings = mutation({
+  args: {
+    id: v.id("projects"),
+    themeId: v.optional(v.string()),
+    contentMode: v.optional(
+      v.union(
+        v.literal("generate"),
+        v.literal("condense"),
+        v.literal("preserve"),
+      ),
+    ),
+    outputLanguage: v.optional(v.string()),
+    imageSource: v.optional(
+      v.union(v.literal("ai"), v.literal("none"), v.literal("upload")),
+    ),
+    imageArtStyle: v.optional(v.string()),
+    contentStyle: v.optional(v.string()),
+    extraKeywords: v.optional(v.string()),
+    format: v.optional(v.string()),
+    instructions: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const { id, ...fields } = args;
+    await ctx.db.patch(id, { ...fields, updatedAt: Date.now() });
   },
 });
 

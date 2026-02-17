@@ -112,3 +112,62 @@ ${sourceText}`,
     content: slide.content.trim(),
   }));
 }
+
+export async function refineSlidesWithSettings(args: {
+  cards: Array<{ title: string; content: string; order: number }>;
+  contentMode: string;
+  outputLanguage: string;
+  contentStyle: string;
+  instructions: string;
+  extraKeywords: string;
+  imageSource: string;
+  imageArtStyle: string;
+}) {
+  const cardsText = args.cards
+    .map((c) => `--- Card ${c.order + 1} ---\nTitle: ${c.title}\n${c.content}`)
+    .join("\n\n");
+
+  const contentModeInstructions =
+    {
+      generate:
+        "Expand and enrich the content with additional details and transitions.",
+      condense: "Shorten and distill the content to key points only.",
+      preserve: "Keep the content as close to the original as possible.",
+    }[args.contentMode] ?? "";
+
+  const wantImages = args.imageSource === "ai";
+  const imageInstructions = wantImages
+    ? `Set needsImage to true for slides that benefit from a visual. Write imagePrompt as a concrete scene description in "${args.imageArtStyle}" art style.`
+    : "Set needsImage to false for all slides. Do not include imagePrompt.";
+
+  const { object } = await generateObject({
+    model: openrouter("google/gemini-2.5-flash"),
+    schema: slidePlanSchema,
+    prompt: `You are refining user-edited presentation cards into final slides.
+
+Content mode: ${args.contentMode}. ${contentModeInstructions}
+Output language: ${args.outputLanguage}
+Style: ${args.contentStyle}
+${args.extraKeywords ? `Keywords to incorporate: ${args.extraKeywords}` : ""}
+${args.instructions ? `Additional instructions: ${args.instructions}` : ""}
+
+Image rules:
+${imageInstructions}
+
+Rules:
+- Output slides in the specified output language.
+- Each slide must have sourceRefs as an empty array (user-edited content).
+- Decide layout per slide: text-only, text-image, image-full.
+- Maintain the same number and order of cards unless condensing merges them.
+
+User-edited cards:
+${cardsText}`,
+  });
+
+  return object.slides.map((slide, index) => ({
+    ...slide,
+    order: index,
+    title: slide.title.trim(),
+    content: slide.content.trim(),
+  }));
+}

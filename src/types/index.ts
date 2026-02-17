@@ -9,7 +9,13 @@ export type SlideId = Id<"slides">;
 export type ProjectSourceId = Id<"projectSources">;
 
 export type SourceType = "images" | "text";
-export type ProjectStatus = "draft" | "processing" | "ready" | "error";
+export type ProjectStatus =
+  | "draft"
+  | "processing"
+  | "editing"
+  | "generating_pdf"
+  | "ready"
+  | "error";
 export type ImageStatus =
   | "none"
   | "pending"
@@ -26,7 +32,13 @@ export type Card = Slide;
 export type ContentType = "presentation" | "webpage" | "document" | "social";
 export type ContentMode = "generate" | "condense" | "preserve";
 export type ImageSource = "ai" | "none" | "upload";
-export type GenerationStatus = "draft" | "processing" | "ready" | "error";
+export type GenerationStatus =
+  | "draft"
+  | "processing"
+  | "editing"
+  | "generating_pdf"
+  | "ready"
+  | "error";
 export type CardLayout = SlideLayout;
 
 export interface NavItem {
@@ -57,4 +69,16 @@ export interface ImageArtStyle {
 export interface ContentStyle {
   id: string;
   name: string;
+}
+
+export interface EditorSettings {
+  contentMode: ContentMode;
+  outputLanguage: string;
+  theme: string;
+  imageSource: ImageSource;
+  imageArtStyle: string;
+  contentStyle: string;
+  extraKeywords: string;
+  format: string;
+  instructions: string;
 }

@@ -9,6 +9,8 @@ export default defineSchema({
     status: v.union(
       v.literal("draft"),
       v.literal("processing"),
+      v.literal("editing"),
+      v.literal("generating_pdf"),
       v.literal("ready"),
       v.literal("error"),
     ),
@@ -20,6 +22,23 @@ export default defineSchema({
     slideCount: v.number(),
     errorMessage: v.optional(v.string()),
     thumbnailUrl: v.optional(v.string()),
+    contentMode: v.optional(
+      v.union(
+        v.literal("generate"),
+        v.literal("condense"),
+        v.literal("preserve"),
+      ),
+    ),
+    outputLanguage: v.optional(v.string()),
+    imageSource: v.optional(
+      v.union(v.literal("ai"), v.literal("none"), v.literal("upload")),
+    ),
+    imageArtStyle: v.optional(v.string()),
+    contentStyle: v.optional(v.string()),
+    extraKeywords: v.optional(v.string()),
+    format: v.optional(v.string()),
+    instructions: v.optional(v.string()),
+    pdfUrl: v.optional(v.string()),
     createdAt: v.number(),
     updatedAt: v.number(),
   })

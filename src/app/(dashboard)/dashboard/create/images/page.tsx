@@ -71,16 +71,14 @@ export default function ImagesPage() {
         files: uploaded,
       });
 
-      const response = await fetch("/api/projects/process-images", {
+      // Fire-and-forget: initial parse runs in background
+      fetch("/api/projects/initial-parse-images", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectId }),
       });
-      if (!response.ok) {
-        throw new Error("Failed to process uploaded images");
-      }
 
-      router.push(`/dashboard/projects/${projectId}`);
+      router.push(`/dashboard/projects/${projectId}/edit`);
     } finally {
       setIsSubmitting(false);
     }

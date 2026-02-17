@@ -2,6 +2,7 @@
 
 import { Button, Tab, Tabs, Textarea } from "@heroui/react";
 import { Icon } from "@iconify/react";
+import { Reorder } from "framer-motion";
 import { useState } from "react";
 import CardItem from "@/components/generate/CardItem";
 
@@ -76,17 +77,25 @@ export default function ContentEditor({
           />
         ) : (
           <div className="flex flex-col gap-3">
-            {cards.map((card, index) => (
-              <CardItem
-                key={card.id}
-                index={index}
-                title={card.title}
-                content={card.content}
-                onTitleChange={(v) => updateCard(index, "title", v)}
-                onContentChange={(v) => updateCard(index, "content", v)}
-                onRemove={() => removeCard(index)}
-              />
-            ))}
+            <Reorder.Group
+              axis="y"
+              values={cards}
+              onReorder={onCardsChange}
+              className="flex flex-col gap-3"
+            >
+              {cards.map((card, index) => (
+                <Reorder.Item key={card.id} value={card}>
+                  <CardItem
+                    index={index}
+                    title={card.title}
+                    content={card.content}
+                    onTitleChange={(v) => updateCard(index, "title", v)}
+                    onContentChange={(v) => updateCard(index, "content", v)}
+                    onRemove={() => removeCard(index)}
+                  />
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
             <Button
               variant="flat"
               size="sm"

@@ -39,17 +39,14 @@ export default function CreateTextProjectPage() {
         text: sourceText.trim(),
       });
 
-      const response = await fetch("/api/projects/process-text", {
+      // Fire-and-forget: initial parse runs in background
+      fetch("/api/projects/initial-parse", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ projectId }),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to process text");
-      }
-
-      router.push(`/dashboard/projects/${projectId}`);
+      router.push(`/dashboard/projects/${projectId}/edit`);
     } finally {
       setIsSubmitting(false);
     }

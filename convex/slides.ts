@@ -132,6 +132,51 @@ export const updateImageState = mutation({
   },
 });
 
+export const saveEditorCards = mutation({
+  args: {
+    projectId: v.id("projects"),
+    userId: v.string(),
+    cards: v.array(
+      v.object({
+        title: v.string(),
+        content: v.string(),
+        order: v.number(),
+      }),
+    ),
+  },
+  handler: async (ctx, args) => {
+    const existing = await ctx.db
+      .query("slides")
+      .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+      .collect();
+
+    for (const slide of existing) {
+      await ctx.db.delete(slide._id);
+    }
+
+    const now = Date.now();
+    const ids = [];
+    for (const card of args.cards) {
+      const id = await ctx.db.insert("slides", {
+        projectId: args.projectId,
+        userId: args.userId,
+        order: card.order,
+        title: card.title,
+        content: card.content,
+        layout: "text-only",
+        needsImage: false,
+        imageStatus: "none",
+        sourceRefs: [],
+        createdAt: now,
+        updatedAt: now,
+      });
+      ids.push(id);
+    }
+
+    return ids;
+  },
+});
+
 export const remove = mutation({
   args: { id: v.id("slides") },
   handler: async (ctx, args) => {

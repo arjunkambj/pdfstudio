@@ -21,9 +21,15 @@ export default function CardItem({
   return (
     <div className="group rounded-lg border border-default-200 p-3 transition-colors hover:border-default-400">
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-xs font-medium text-default-400">
-          Card {index + 1}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <Icon
+            icon="solar:hamburger-menu-linear"
+            className="cursor-grab text-sm text-default-400 active:cursor-grabbing"
+          />
+          <span className="text-xs font-medium text-default-400">
+            Card {index + 1}
+          </span>
+        </div>
         <Button
           isIconOnly
           size="sm"

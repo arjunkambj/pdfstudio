@@ -15,10 +15,12 @@ import type { Id } from "../../../../../../convex/_generated/dataModel";
 
 const statusColor: Record<
   string,
-  "default" | "warning" | "success" | "danger"
+  "default" | "primary" | "warning" | "success" | "danger"
 > = {
   draft: "default",
   processing: "warning",
+  editing: "primary",
+  generating_pdf: "warning",
   ready: "success",
   error: "danger",
 };
@@ -35,6 +37,7 @@ export default function ProjectViewPage({
   const [editingCard, setEditingCard] = useState<Card | null>(null);
   const [isGeneratingImages, setIsGeneratingImages] = useState(false);
   const [isReprocessing, setIsReprocessing] = useState(false);
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
 
   const handleSaveEdit = async (
     cardId: Id<"slides">,
@@ -67,6 +70,32 @@ export default function ProjectViewPage({
       });
     } finally {
       setIsGeneratingImages(false);
+    }
+  };
+
+  const handleDownloadPdf = async () => {
+    setIsDownloadingPdf(true);
+    try {
+      const response = await fetch("/api/projects/generate-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projectId }),
+      });
+      if (!response.ok) throw new Error("PDF generation failed");
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download =
+        response.headers
+          .get("Content-Disposition")
+          ?.match(/filename="(.+)"/)?.[1] ?? "presentation.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } finally {
+      setIsDownloadingPdf(false);
     }
   };
 
@@ -151,6 +180,15 @@ export default function ProjectViewPage({
 
         <div className="flex flex-wrap gap-2">
           <Button
+            as={Link}
+            href={`/dashboard/projects/${projectId}/edit`}
+            variant="flat"
+            size="sm"
+            startContent={<Icon icon="solar:pen-bold" className="text-base" />}
+          >
+            Edit
+          </Button>
+          <Button
             variant="flat"
             size="sm"
             isLoading={isReprocessing}
@@ -181,6 +219,23 @@ export default function ProjectViewPage({
             }
           >
             Generate images ({pendingImages})
+          </Button>
+          <Button
+            color="secondary"
+            size="sm"
+            isLoading={isDownloadingPdf}
+            isDisabled={cards.length === 0}
+            onPress={handleDownloadPdf}
+            startContent={
+              !isDownloadingPdf && (
+                <Icon
+                  icon="solar:download-minimalistic-bold"
+                  className="text-base"
+                />
+              )
+            }
+          >
+            Download PDF
           </Button>
         </div>
       </div>
