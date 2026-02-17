@@ -2,8 +2,7 @@
 
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import { Icon } from "@iconify/react";
-import { Button, Input } from "@heroui/react";
-import { UserButton } from "@stackframe/stack";
+import { Button } from "@heroui/react";
 import { usePathname } from "next/navigation";
 
 const breadcrumbLabels: Record<string, string> = {
@@ -44,20 +43,7 @@ export default function Header({
       <h1 className="text-lg font-semibold">{getPageTitle()}</h1>
 
       <div className="ml-auto flex items-center gap-3">
-        <Input
-          placeholder="Search..."
-          size="sm"
-          variant="bordered"
-          className="hidden w-64 sm:flex"
-          startContent={
-            <Icon
-              icon="solar:magnifer-linear"
-              className="text-foreground/40"
-            />
-          }
-        />
         <ThemeToggle />
-        <UserButton />
       </div>
     </header>
   );

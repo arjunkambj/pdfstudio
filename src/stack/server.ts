@@ -2,5 +2,11 @@ import "server-only";
 import { StackServerApp } from "@stackframe/stack";
 
 export const stackServerApp = new StackServerApp({
-  tokenStore: "nextjs-cookie", // storing auth tokens in cookies
+  tokenStore: "nextjs-cookie",
+  urls: {
+    signIn: "/sign-in",
+    afterSignIn: "/dashboard",
+    afterSignUp: "/dashboard",
+    afterSignOut: "/",
+  }, // storing auth tokens in cookies
 });

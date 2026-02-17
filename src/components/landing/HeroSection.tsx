@@ -1,128 +1,74 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import { Button } from "@heroui/react";
-import NextLink from "next/link";
+import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import NextLink from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden px-4 pt-24 pb-20 sm:px-6 lg:pt-32 lg:pb-28">
-      {/* Background gradient */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 h-[600px] w-[800px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute top-40 right-0 h-[400px] w-[400px] rounded-full bg-secondary/5 blur-3xl" />
-      </div>
+    <section className="relative px-4 pt-32 pb-24 sm:px-6 lg:pt-40 lg:pb-32">
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary/[0.03] to-transparent" />
 
       <div className="mx-auto max-w-4xl text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary">
-            <Icon icon="solar:magic-stick-3-bold" className="text-base" />
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-default-200 bg-default-100 px-3 py-1 text-xs font-medium text-foreground/60">
+            <Icon icon="solar:magic-stick-3-bold" className="text-primary" />
             AI-Powered Document Builder
-          </div>
+          </span>
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
+          transition={{ duration: 0.5, delay: 0.08 }}
+          className="mt-8 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
         >
-          Create stunning{" "}
-          <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            presentations
-          </span>{" "}
+          Create stunning documents
+          <br className="hidden sm:block" />
           in minutes
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mx-auto mt-6 max-w-2xl text-lg text-foreground/60"
+          transition={{ duration: 0.5, delay: 0.16 }}
+          className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-foreground/50"
         >
-          Transform your ideas into polished documents and presentations with
-          AI. Just describe what you need, and watch it come to life.
+          Describe what you need. AI builds it. Export and share instantly.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          transition={{ duration: 0.5, delay: 0.24 }}
+          className="mt-10 flex items-center justify-center gap-4"
         >
           <Button
             as={NextLink}
             href="/sign-up"
             color="primary"
             size="lg"
-            className="font-semibold"
+            radius="full"
+            className="font-medium px-8"
             endContent={<Icon icon="solar:arrow-right-linear" />}
           >
-            Start Building Free
+            Get Started Free
           </Button>
           <Button
             as="a"
             href="#how-it-works"
             variant="bordered"
             size="lg"
-            startContent={<Icon icon="solar:play-circle-linear" />}
+            radius="full"
+            className="px-8"
           >
-            See How It Works
+            Learn More
           </Button>
-        </motion.div>
-
-        {/* App preview mockup */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="mx-auto mt-16 max-w-3xl"
-        >
-          <div className="rounded-xl border border-default-200 bg-content1 p-2 shadow-2xl shadow-primary/5">
-            <div className="flex items-center gap-1.5 border-b border-default-200 px-3 py-2">
-              <div className="h-2.5 w-2.5 rounded-full bg-danger/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-warning/60" />
-              <div className="h-2.5 w-2.5 rounded-full bg-success/60" />
-              <span className="ml-2 text-xs text-foreground/40">
-                PDF Studio — Annual Report 2025
-              </span>
-            </div>
-            <div className="grid grid-cols-[200px_1fr] gap-0">
-              <div className="border-r border-default-200 p-4">
-                <div className="mb-3 h-3 w-20 rounded bg-default-200" />
-                <div className="space-y-2">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-2 rounded-lg bg-default-100 p-2"
-                    >
-                      <div className="h-8 w-6 rounded bg-default-200" />
-                      <div className="flex-1 space-y-1">
-                        <div className="h-2 w-full rounded bg-default-200" />
-                        <div className="h-2 w-2/3 rounded bg-default-100" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex items-center justify-center p-8">
-                <div className="w-full space-y-4">
-                  <div className="h-4 w-3/4 rounded bg-default-200" />
-                  <div className="h-3 w-full rounded bg-default-100" />
-                  <div className="h-3 w-full rounded bg-default-100" />
-                  <div className="h-3 w-5/6 rounded bg-default-100" />
-                  <div className="mt-6 h-32 w-full rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10" />
-                  <div className="h-3 w-full rounded bg-default-100" />
-                  <div className="h-3 w-2/3 rounded bg-default-100" />
-                </div>
-              </div>
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>

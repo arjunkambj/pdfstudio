@@ -11,9 +11,9 @@ export default function DashboardShell({
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-background">
-      {/* Desktop sidebar */}
-      <div className="hidden md:flex">
+    <div className="flex h-screen overflow-hidden bg-background">
+      {/* Desktop sidebar — fixed, no scroll */}
+      <div className="hidden md:block">
         <Sidebar />
       </div>
 
@@ -31,10 +31,10 @@ export default function DashboardShell({
         </DrawerContent>
       </Drawer>
 
-      {/* Main content */}
-      <div className="flex flex-1 flex-col">
+      {/* Main content — only this scrolls */}
+      <div className="flex flex-1 flex-col overflow-hidden">
         <Header onMobileMenuOpen={() => setIsMobileOpen(true)} />
-        <main className="flex-1 overflow-auto p-4 sm:p-6">{children}</main>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</main>
       </div>
     </div>
   );

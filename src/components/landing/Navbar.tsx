@@ -1,11 +1,9 @@
 "use client";
 
-import Logo from "@/components/common/Logo";
-import { Icon } from "@iconify/react";
 import {
   Button,
-  Link,
   Navbar as HeroNavbar,
+  Link,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
@@ -13,8 +11,10 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import NextLink from "next/link";
 import { useState } from "react";
+import Logo from "@/components/common/Logo";
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -29,17 +29,19 @@ export default function Navbar() {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
       maxWidth="xl"
-      isBlurred
-      isBordered
+      isBlurred={false}
+      position="sticky"
       classNames={{
-        wrapper: "px-4 sm:px-6",
+        base: "bg-transparent border-none pt-4",
+        wrapper:
+          "bg-content2 rounded-full px-10 ",
       }}
     >
       <NavbarBrand>
         <Logo />
       </NavbarBrand>
 
-      <NavbarContent className="hidden gap-6 sm:flex" justify="center">
+      <NavbarContent className="hidden gap-12 sm:flex" justify="center">
         {navLinks.map((link) => (
           <NavbarItem key={link.href}>
             <Link
@@ -53,22 +55,13 @@ export default function Navbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden sm:flex">
+             <NavbarItem>
           <Button
             as={NextLink}
             href="/sign-in"
-            variant="light"
-            size="sm"
-          >
-            Sign In
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            as={NextLink}
-            href="/sign-up"
             color="primary"
-            size="sm"
+            size="md"
+            radius="full"
             endContent={<Icon icon="solar:arrow-right-linear" />}
           >
             Get Started
@@ -77,7 +70,7 @@ export default function Navbar() {
         <NavbarMenuToggle className="sm:hidden" />
       </NavbarContent>
 
-      <NavbarMenu>
+      <NavbarMenu className="bg-background/80 backdrop-blur-xl mt-2 rounded-xl border border-default-200">
         {navLinks.map((link) => (
           <NavbarMenuItem key={link.href}>
             <Link

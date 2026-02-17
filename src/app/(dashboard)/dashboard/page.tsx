@@ -1,17 +1,12 @@
 "use client";
 
-import ActivityFeed from "@/components/dashboard/ActivityFeed";
-import QuickActions from "@/components/dashboard/QuickActions";
-import RecentProjects from "@/components/dashboard/RecentProjects";
-import StatsCards from "@/components/dashboard/StatsCards";
-import { useDashboardStats } from "@/hooks/useDashboardStats";
-import { useProjects } from "@/hooks/useProjects";
+import { Icon } from "@iconify/react";
+import { Button } from "@heroui/react";
 import { useUser } from "@stackframe/stack";
+import NextLink from "next/link";
 
 export default function DashboardPage() {
   const user = useUser();
-  const { stats, activity } = useDashboardStats();
-  const { projects } = useProjects();
 
   return (
     <div className="space-y-8">
@@ -24,10 +19,26 @@ export default function DashboardPage() {
         </p>
       </div>
 
-      <QuickActions />
-      <StatsCards stats={stats} />
-      <RecentProjects projects={projects} />
-      <ActivityFeed activity={activity} />
+      <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-default-300 py-20">
+        <Icon
+          icon="solar:document-add-bold-duotone"
+          className="text-5xl text-foreground/20"
+        />
+        <h2 className="mt-4 text-lg font-semibold">No projects yet</h2>
+        <p className="mt-1 text-sm text-foreground/50">
+          Create your first project to get started
+        </p>
+        <Button
+          as={NextLink}
+          href="/dashboard/projects"
+          color="primary"
+          size="sm"
+          className="mt-6"
+          startContent={<Icon icon="solar:add-circle-bold" />}
+        >
+          New Project
+        </Button>
+      </div>
     </div>
   );
 }

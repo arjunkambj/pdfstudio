@@ -1,7 +1,7 @@
 "use client";
 
-import Logo from "@/components/common/Logo";
 import { Divider, Link } from "@heroui/react";
+import Logo from "@/components/common/Logo";
 
 const footerLinks = {
   Product: [
@@ -22,13 +22,13 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="px-4 pb-8 sm:px-6">
+    <footer className="px-4 pb-8 sm:px-6 border-t border-default-200 pt-12">
       <div className="mx-auto max-w-6xl">
-        <Divider className="mb-8" />
+      
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Logo />
-            <p className="mt-3 text-sm text-foreground/50">
+            <p className="mt-3 text-sm text-foreground/40">
               AI-powered document builder for modern teams.
             </p>
           </div>
@@ -40,7 +40,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-foreground/50 transition-colors hover:text-foreground"
+                      className="text-sm text-foreground/40 transition-colors hover:text-foreground"
                     >
                       {link.label}
                     </Link>
