@@ -2,7 +2,9 @@ import Logo from "@/components/common/Logo";
 
 export default function AuthLayout({
   children,
-}: { children: React.ReactNode }) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex min-h-screen">
       {/* Left — Visual panel (hidden on mobile) */}

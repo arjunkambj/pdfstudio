@@ -11,7 +11,7 @@ export default function LandingPage() {
       <Navbar />
       <main>
         <HeroSection />
-       
+
         <CTASection />
       </main>
       <Footer />

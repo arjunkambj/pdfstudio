@@ -1,14 +1,16 @@
 "use client";
 
-import DashboardShell from "@/components/layout/DashboardShell";
 import { Spinner } from "@heroui/react";
 import { useUser } from "@stackframe/stack";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import DashboardShell from "@/components/layout/DashboardShell";
 
 export default function DashboardLayout({
   children,
-}: { children: React.ReactNode }) {
+}: {
+  children: React.ReactNode;
+}) {
   const user = useUser();
   const router = useRouter();
 

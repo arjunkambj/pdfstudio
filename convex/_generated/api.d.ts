@@ -8,13 +8,21 @@
  * @module
  */
 
+import type * as projectSources from "../projectSources.js";
+import type * as projects from "../projects.js";
+import type * as slides from "../slides.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
 
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  projectSources: typeof projectSources;
+  projects: typeof projects;
+  slides: typeof slides;
+}>;
 
 /**
  * A utility for referencing Convex functions in your app's public API.

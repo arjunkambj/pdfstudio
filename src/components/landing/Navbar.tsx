@@ -33,8 +33,7 @@ export default function Navbar() {
       position="sticky"
       classNames={{
         base: "bg-transparent border-none pt-4",
-        wrapper:
-          "bg-content2 rounded-full px-10 ",
+        wrapper: "bg-content2 rounded-full px-10 ",
       }}
     >
       <NavbarBrand>
@@ -55,7 +54,7 @@ export default function Navbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-             <NavbarItem>
+        <NavbarItem>
           <Button
             as={NextLink}
             href="/sign-in"

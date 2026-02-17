@@ -1,9 +1,9 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import SidebarItem from "@/components/layout/SidebarItem";
 import UserAvatar from "@/components/layout/UserAvatar";
 import type { NavItem } from "@/types";
-import { usePathname } from "next/navigation";
 
 const navItems: NavItem[] = [
   {
@@ -32,7 +32,9 @@ export default function Sidebar() {
             item={item}
             isActive={
               item.href === "/dashboard"
-                ? pathname === "/dashboard"
+                ? pathname === "/dashboard" ||
+                  pathname.startsWith("/dashboard/create") ||
+                  pathname.startsWith("/dashboard/projects")
                 : pathname.startsWith(item.href)
             }
           />

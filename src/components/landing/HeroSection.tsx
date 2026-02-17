@@ -3,6 +3,7 @@
 import { Button } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import NextLink from "next/link";
 
 export default function HeroSection() {
@@ -50,7 +51,7 @@ export default function HeroSection() {
         >
           <Button
             as={NextLink}
-            href="/sign-up"
+            href="/sign-in"
             color="primary"
             size="lg"
             radius="full"
@@ -60,8 +61,8 @@ export default function HeroSection() {
             Get Started Free
           </Button>
           <Button
-            as="a"
-            href="#how-it-works"
+            as={Link}
+            href="/sign-in"
             variant="bordered"
             size="lg"
             radius="full"

@@ -1,8 +1,8 @@
 "use client";
 
-import type { NavItem } from "@/types";
 import { Icon } from "@iconify/react";
 import NextLink from "next/link";
+import type { NavItem } from "@/types";
 
 interface SidebarItemProps {
   item: NavItem;
@@ -13,7 +13,7 @@ export default function SidebarItem({ item, isActive }: SidebarItemProps) {
   return (
     <NextLink
       href={item.href}
-      className={`flex flex-col items-center gap-1 rounded-lg px-2 py-2 transition-colors ${
+      className={`flex w-14 flex-col items-center gap-1 rounded-lg px-2 py-2 transition-colors ${
         isActive
           ? "bg-primary/10 text-primary"
           : "text-foreground/50 hover:bg-default-100 hover:text-foreground/80"

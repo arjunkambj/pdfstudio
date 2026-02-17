@@ -1,29 +1,30 @@
 "use client";
 
-import ThemeToggle from "@/components/layout/ThemeToggle";
-import { Icon } from "@iconify/react";
 import { Button } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 
 const breadcrumbLabels: Record<string, string> = {
-  "/dashboard": "Dashboard",
-  "/dashboard/projects": "Projects",
+  "/dashboard": "Home",
+  "/dashboard/create": "Create",
+  "/dashboard/create/text": "Paste text",
+  "/dashboard/create/images": "Import images",
   "/dashboard/settings": "Settings",
+  "/dashboard/templates": "Templates",
+  "/dashboard/library": "Library",
 };
 
 export default function Header({
   onMobileMenuOpen,
-}: { onMobileMenuOpen?: () => void }) {
+}: {
+  onMobileMenuOpen?: () => void;
+}) {
   const pathname = usePathname();
 
   const getPageTitle = () => {
-    if (
-      pathname.startsWith("/dashboard/projects/") &&
-      pathname !== "/dashboard/projects"
-    ) {
-      return "Project Editor";
-    }
-    return breadcrumbLabels[pathname] ?? "Dashboard";
+    if (pathname.startsWith("/dashboard/projects/")) return "Project";
+    return breadcrumbLabels[pathname] ?? "Home";
   };
 
   return (

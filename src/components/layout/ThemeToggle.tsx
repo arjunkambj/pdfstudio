@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import { Button } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {

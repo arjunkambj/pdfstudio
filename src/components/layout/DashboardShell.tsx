@@ -1,13 +1,15 @@
 "use client";
 
-import Header from "@/components/layout/Header";
-import Sidebar from "@/components/layout/Sidebar";
 import { Drawer, DrawerBody, DrawerContent } from "@heroui/react";
 import { useState } from "react";
+import Header from "@/components/layout/Header";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function DashboardShell({
   children,
-}: { children: React.ReactNode }) {
+}: {
+  children: React.ReactNode;
+}) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (

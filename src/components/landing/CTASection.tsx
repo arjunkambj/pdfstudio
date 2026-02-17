@@ -18,7 +18,7 @@ export default function CTASection() {
         <div className="mt-8">
           <Button
             as={NextLink}
-            href="/sign-up"
+            href="/sign-in"
             color="primary"
             size="lg"
             radius="full"

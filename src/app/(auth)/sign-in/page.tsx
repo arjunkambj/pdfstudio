@@ -4,9 +4,9 @@ import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
 import { Input } from "@heroui/input";
 import { Icon } from "@iconify/react";
-import { useRouter } from "next/navigation";
-import { type FormEvent, useState } from "react";
 import { useStackApp, useUser } from "@stackframe/stack";
+import { useRouter } from "next/navigation";
+import { type FormEvent, useEffect, useState } from "react";
 
 export default function SignInPage() {
   const app = useStackApp();
@@ -18,8 +18,13 @@ export default function SignInPage() {
   const [isSent, setIsSent] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (user) {
+      router.replace("/dashboard");
+    }
+  }, [user, router]);
+
   if (user) {
-    router.replace("/dashboard");
     return null;
   }
 
@@ -84,7 +89,6 @@ export default function SignInPage() {
       <Button
         variant="flat"
         className="border-divider"
-
         startContent={<Icon icon="logos:google-icon" className="text-base" />}
         onPress={handleGoogle}
         fullWidth

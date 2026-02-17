@@ -24,7 +24,6 @@ export default function Footer() {
   return (
     <footer className="px-4 pb-8 sm:px-6 border-t border-default-200 pt-12">
       <div className="mx-auto max-w-6xl">
-      
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <Logo />

@@ -1,26 +1,33 @@
-export type ProjectStatus = "draft" | "active" | "archived";
+import type { Doc, Id } from "../../convex/_generated/dataModel";
 
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-  status: ProjectStatus;
-  createdAt: string;
-  updatedAt: string;
-  thumbnailUrl: string | null;
-  fileCount: number;
-}
+export type Project = Doc<"projects">;
+export type Slide = Doc<"slides">;
+export type ProjectSource = Doc<"projectSources">;
 
-export interface PDFFile {
-  id: string;
-  projectId: string;
-  name: string;
-  url: string;
-  size: number;
-  pageCount: number;
-  createdAt: string;
-  updatedAt: string;
-}
+export type ProjectId = Id<"projects">;
+export type SlideId = Id<"slides">;
+export type ProjectSourceId = Id<"projectSources">;
+
+export type SourceType = "images" | "text";
+export type ProjectStatus = "draft" | "processing" | "ready" | "error";
+export type ImageStatus =
+  | "none"
+  | "pending"
+  | "generating"
+  | "completed"
+  | "error";
+export type SlideLayout = "text-only" | "text-image" | "image-full";
+
+// Legacy aliases for existing component names.
+export type Generation = Project;
+export type Card = Slide;
+
+// Legacy model exports kept for backward file compatibility.
+export type ContentType = "presentation" | "webpage" | "document" | "social";
+export type ContentMode = "generate" | "condense" | "preserve";
+export type ImageSource = "ai" | "none" | "upload";
+export type GenerationStatus = "draft" | "processing" | "ready" | "error";
+export type CardLayout = SlideLayout;
 
 export interface NavItem {
   key: string;
@@ -30,18 +37,24 @@ export interface NavItem {
   badge?: number;
 }
 
-export interface DashboardStats {
-  totalProjects: number;
-  activeProjects: number;
-  totalFiles: number;
-  storageUsed: string;
+export interface ThemeDefinition {
+  id: string;
+  name: string;
+  colors: {
+    background: string;
+    foreground: string;
+    primary: string;
+    accent: string;
+  };
 }
 
-export interface ActivityItem {
+export interface ImageArtStyle {
   id: string;
-  type: "project_created" | "file_uploaded" | "project_updated" | "file_deleted";
+  name: string;
   description: string;
-  timestamp: string;
-  projectId: string;
-  projectName: string;
+}
+
+export interface ContentStyle {
+  id: string;
+  name: string;
 }

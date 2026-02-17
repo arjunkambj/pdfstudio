@@ -1,6 +1,5 @@
 "use client";
 
-import { Icon } from "@iconify/react";
 import {
   Avatar,
   Dropdown,
@@ -8,6 +7,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import { useStackApp, useUser } from "@stackframe/stack";
 
 function getInitials(name?: string | null, email?: string | null): string {

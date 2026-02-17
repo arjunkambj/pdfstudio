@@ -1,8 +1,8 @@
 "use client";
 
+import { Tab, Tabs } from "@heroui/react";
 import PreferencesSection from "@/components/settings/PreferencesSection";
 import ProfileSection from "@/components/settings/ProfileSection";
-import { Tab, Tabs } from "@heroui/react";
 
 export default function SettingsPage() {
   return (
