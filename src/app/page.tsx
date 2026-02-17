@@ -1,11 +1,21 @@
-"use client";
+import CTASection from "@/components/landing/CTASection";
+import FeaturesSection from "@/components/landing/FeaturesSection";
+import Footer from "@/components/landing/Footer";
+import HeroSection from "@/components/landing/HeroSection";
+import HowItWorksSection from "@/components/landing/HowItWorksSection";
+import Navbar from "@/components/landing/Navbar";
 
-import { Button } from "@heroui/react";
-
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div>
-      <Button>Click me</Button>
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <CTASection />
+      </main>
+      <Footer />
     </div>
   );
 }
